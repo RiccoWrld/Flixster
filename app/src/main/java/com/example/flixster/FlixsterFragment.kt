@@ -71,8 +71,10 @@ class FlixsterFragment : Fragment(), OnListFragmentInteractionListener {
 
                     progressBar.hide()
 
-                    val resultsJson = json?.jsonObject?.getJSONObject("results")
-                    val moviesRawJSON : String = resultsJson?.getJSONArray("results").toString()
+                    Log.d("test", json.toString())
+
+                    val resultsJson = json.jsonObject.getJSONObject("results")
+                    val moviesRawJSON : String = resultsJson.getJSONArray("results").toString()
 
                     val gson = Gson()
                     val arrayMovieType = object : TypeToken<List<Flixster>>() {}.type
