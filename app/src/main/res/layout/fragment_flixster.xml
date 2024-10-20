@@ -28,7 +28,7 @@
         android:id="@+id/movie_image"
         android:layout_width="wrap_content"
         android:layout_height="150dp"
-        android:src="@drawable/ic_launcher_background"
+        app:srcCompat="@android:drawable/ic_menu_gallery"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 

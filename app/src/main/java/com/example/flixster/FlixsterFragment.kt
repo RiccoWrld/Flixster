@@ -18,6 +18,7 @@ import com.google.gson.Gson
 import com.google.gson.JsonObject
 import com.google.gson.reflect.TypeToken
 import okhttp3.Headers
+import org.json.JSONException
 
 
 private const val API_Key = "a07e22bc18f5cb106bfe4cc1f83ad8ed"
@@ -67,22 +68,29 @@ class FlixsterFragment : Fragment(), OnListFragmentInteractionListener {
                 override fun onSuccess(
                     statusCode: Int,
                     headers: Headers?,
-                    json: JsonHttpResponseHandler.JSON) {
-
+                    json: JsonHttpResponseHandler.JSON
+                ) {
                     progressBar.hide()
-
                     Log.d("test", json.toString())
 
-                    val resultsJson = json.jsonObject.getJSONObject("results")
-                    val moviesRawJSON : String = resultsJson.getJSONArray("results").toString()
+                    try {
+                        // Correctly access the results array
+                        val resultsJson = json.jsonObject.getJSONArray("results")
+                        val moviesRawJSON: String = resultsJson.toString()
 
-                    val gson = Gson()
-                    val arrayMovieType = object : TypeToken<List<Flixster>>() {}.type
+                        // Use Gson to parse the JSON into a List of Flixster objects
+                        val gson = Gson()
+                        val arrayMovieType = object : TypeToken<List<Flixster>>() {}.type
+                        val models: List<Flixster> = gson.fromJson(moviesRawJSON, arrayMovieType)
 
-                    val models : List<Flixster> = gson.fromJson(moviesRawJSON, arrayMovieType)
-                    recyclerView.adapter = FlixsterRecyclerViewAdapter(models, this@FlixsterFragment)
-
+                        // Set the adapter with the parsed data
+                        recyclerView.adapter = FlixsterRecyclerViewAdapter(models, this@FlixsterFragment)
+                    } catch (e: JSONException) {
+                        Log.e("FlixsterFragment", "JSON parsing error: ${e.message}")
+                        Toast.makeText(context, "Error parsing data", Toast.LENGTH_LONG).show()
+                    }
                 }
+
 
             }
 
