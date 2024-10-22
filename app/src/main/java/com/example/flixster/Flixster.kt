@@ -13,5 +13,5 @@ class Flixster {
 
     @JvmField
     @SerializedName("poster_path")
-    var ImageUrl: String? = null
+    var posterPath: String? = null
 }

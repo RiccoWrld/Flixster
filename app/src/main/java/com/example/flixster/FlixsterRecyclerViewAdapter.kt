@@ -41,8 +41,9 @@ class FlixsterRecyclerViewAdapter(
         holder.mMovieTitle.text = Allmovies.title
         holder.mMovieOverview.text = Allmovies.description
 
-        Glide.with(holder.mView).load(Allmovies.ImageUrl).into(holder.mMovieImage)
-        Allmovies.ImageUrl?.let { Log.d("ImageUrl", it)}
+        Glide.with(holder.mView).load( "https://image.tmdb.org/t/p/w500${Allmovies.posterPath}"
+        ).into(holder.mMovieImage)
+        Allmovies.posterPath?.let { Log.d("ImageUrl", it)}
 
         holder.mView.setOnClickListener{
             holder.mItem?.let { Allmovies -> mListener?.onItemClick(Allmovies)}
