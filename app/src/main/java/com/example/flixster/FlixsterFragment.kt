@@ -98,7 +98,7 @@ class FlixsterFragment : Fragment(), OnListFragmentInteractionListener {
     }
 
     override fun onItemClick(item: Flixster) {
-        Toast.makeText(context, "test: " + item.title, Toast.LENGTH_LONG).show()
+        Toast.makeText(context, "Movie: " + item.title, Toast.LENGTH_LONG).show()
     }
 
 }
